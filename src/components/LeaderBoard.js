@@ -19,10 +19,10 @@ function mapStateToProps({ users }) {
   return {
     users: Object.values(users).sort(
       (a, b) =>
-        b.questions.length +
-        Object.keys(b.answers).length -
-        a.questions +
-        Object.keys(a.answers).length,
+        (b.questions.length +
+        Object.keys(b.answers).length) -
+        (a.questions.length +
+        Object.keys(a.answers).length),
     ),
   };
 }

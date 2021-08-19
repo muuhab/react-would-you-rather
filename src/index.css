@@ -31,4 +31,12 @@ input[type=text], select {
     background-color: #45a049;
   }
 
-  
+  .back-btn{
+    width: 20%;
+  }
+  .card-img{
+    width: 8%;
+  }
+  .highlight{
+    background-color: blanchedalmond;
+  }

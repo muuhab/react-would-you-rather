@@ -4,7 +4,7 @@ import { getQuestions } from "./questions"
 import { getUsers } from "./users"
 import { showLoading,hideLoading } from 'react-redux-loading'
 
-export const AUTHED_USER = 'sarahedo'
+export const AUTHED_USER = 'Logout'
 
 export const getData = () => (dispatch) => {
     dispatch(showLoading())

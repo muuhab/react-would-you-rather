@@ -24,7 +24,7 @@ export class AppNav extends Component {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/new-question" className="nav-link">
+                <NavLink to="/add" className="nav-link">
                   <span className="fa fa-home fa-lg"></span>New Question
                 </NavLink>
               </NavItem>
@@ -38,6 +38,7 @@ export class AppNav extends Component {
               <React.Fragment>
                 <Nav navbar className="m-auto">
                   <NavbarBrand>
+                    <img src={this.props.user.avatarURL} className="card-img" alt="user"/>
                     {this.props.user.name}
                   </NavbarBrand>
                 </Nav>

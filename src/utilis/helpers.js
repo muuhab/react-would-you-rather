@@ -7,8 +7,8 @@ export function calculateVotes(votes1,votes2){
     const option1Number=length-votes1.length
     const option2Number=length-votes2.length
     return {
-        option1: votes1.length!==0?votes1.length/length*100:0,
-        option2: votes2.length!==0?votes2.length/length*100:0,
+        option1: votes1.length!==0?Math.round(votes1.length/length*100):0,
+        option2: votes2.length!==0?Math.round(votes2.length/length*100):0,
         option1Number,
         option2Number,
         length

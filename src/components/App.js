@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { getData } from "../actions/shared";
 import LeaderBoard from "./LeaderBoard";
 import NewQuestion from "./NewQuestion";
@@ -10,6 +10,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import Home from "./Home";
 import Question from "./Question";
 import AnswerdQuestion from "./AnswerdQuestion";
+import NotFound from './NotFound'
+import LoadingBar from "react-redux-loading";
 
 export class App extends Component {
   componentDidMount() {
@@ -19,9 +21,10 @@ export class App extends Component {
     return (
       <div className="container">
         {this.props.loading === true ? null : (
-          <div>
+          <React.Fragment>
             <AppNav loggedOut={this.props.loggedOut} />
-            <div>
+            <React.Fragment>
+                <LoadingBar/>
               <Switch>
                 <Route path='/login' component={Login}/>
                 <ProtectedRoute
@@ -44,7 +47,7 @@ export class App extends Component {
                 />
                 <ProtectedRoute
                   exact
-                  path="/new-question"
+                  path="/add"
                   Component={NewQuestion}
                   authedUser={!this.props.loggedOut}
                 />
@@ -54,10 +57,11 @@ export class App extends Component {
                   Component={LeaderBoard}
                   authedUser={!this.props.loggedOut}
                 />
-                {/* <Route exact path="*" Component={NotFound} /> */}
+                <Route path="/not-found" component={NotFound} />
+                <Redirect to='/not-found'/>
               </Switch>
-            </div>
-          </div>
+            </React.Fragment>
+          </React.Fragment>
         )}
       </div>
     );

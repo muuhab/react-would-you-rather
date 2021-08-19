@@ -1,14 +1,22 @@
 import { saveQuestion } from "../utilis/api"
-import { _saveQuestionAnswer } from "../utilis/_DATA"
+import { addQuestionToUser } from "./users"
+import { showLoading,hideLoading } from 'react-redux-loading'
 
 export const GET_QUESTIONS='GET_QUESTIONS'
 export const ADD_QUESTION='ADD_QUESTION'
-export const SAVE_QUESTION_ANSWER='SAVE_QUESTION_ANSWER'
+export const ADD_ANSWER_TO_QUESTION='ADD_ANSWER_TO_QUESTION'
 
 export const getQuestions=(questions)=>{
     return{
         type:GET_QUESTIONS,
         questions
+    }
+}
+export const addAnswerToQuestion=(answer,qid)=>{
+    return {
+        type:ADD_ANSWER_TO_QUESTION,
+        answer,
+        qid
     }
 }
 
@@ -20,32 +28,21 @@ export const addQuestion=(question)=>{
 
 }
 
-export const saveQuestionAnswer=(answer,qid,authedUser)=>{
-    return {
-        type:SAVE_QUESTION_ANSWER,
-        answer,
-        qid,
-        authedUser
-    }
 
-}
 
 export const handleSaveQuestion=(optionOneText,optionTwoText)=>(dispatch,getState)=>{
+    dispatch(showLoading())
     const {authedUser}=getState()
     return saveQuestion({
         optionOneText,
         optionTwoText,
         author: authedUser
     })
-    .then((question)=>dispatch(addQuestion(question)))
+    .then((question)=>{
+        dispatch(addQuestion(question))
+        dispatch(addQuestionToUser(question.id,authedUser))
+        dispatch(hideLoading())
+    }
+    )
 }
 
-export const handleSaveQuestionAnswer=(answer,qid)=>(dispatch,getState)=>{
-    const {authedUser}=getState()
-    return _saveQuestionAnswer({
-        qid,
-        answer,
-        authedUser
-    })
-    .then(()=>dispatch(saveQuestionAnswer(answer,qid,authedUser)))
-}

@@ -8,6 +8,7 @@ export class NewQuestion extends Component {
   state = {
     optionOne: "",
     optionTwo: "",
+    submited:false
   };
   handleChange = (e) => {
       const value=e.target.value
@@ -21,13 +22,19 @@ export class NewQuestion extends Component {
       }));
   };
   handleSubmit = (e) => {
+    e.preventDefault()
     const { dispatch } = this.props;
     const { optionOne, optionTwo } = this.state;
     dispatch(handleSaveQuestion(optionOne, optionTwo));
-    <Redirect to="/"/>
+    this.setState(()=>({
+      submited:true
+    }))
   };
   render() {
-      const {optionOne,optionTwo}=this.state
+      const {optionOne,optionTwo,submited}=this.state
+      if(submited)
+      return <Redirect to="/"/>
+
     return (
       <Container>
         <Col md={{ offset: 3, span: 6 }}>
